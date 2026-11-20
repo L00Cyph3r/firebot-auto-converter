@@ -45,7 +45,7 @@ export class DistanceConverter {
         let messageId = <string>event.meta.messageId;
 
         const muricaRegex = new RegExp(/(?:^|\s)(\d+[.,]?\d*)\s?(')\s?(\d+[.,]?\d*)\s?(")/gi);
-        const distanceRegex = new RegExp(/(?:^|\s)(-?\d+[.,]?\d*)\s?((cm|m|km|kilometers?|ft|foot|feet|inch|"|'|miles?|yards?)\w*)/gi);
+        const distanceRegex = new RegExp(/(?:^|\s)(-?\d+[.,]?\d*)\s?((cm|m|km|kilometers?|ft|foot|feet|inch|inches|"|'|miles?|yards?)\w*)/gi);
 
         let muricaMatches = muricaRegex.exec(message.replaceAll(',', '.'));
         let distanceMatches = distanceRegex.exec(message.replaceAll(',', '.'));
@@ -109,6 +109,9 @@ export class DistanceConverter {
                     break;
                 case 'foot':
                     unit = 'ft';
+                    break;
+                case 'inches':
+                    unit = 'inch';
                     break;
                 case '"':
                     unit = 'inch';

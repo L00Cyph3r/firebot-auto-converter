@@ -35,6 +35,7 @@ export class TemperatureConverter {
 
             switch (ue) {
                 case TemperatureUnit.Celsius:
+                    if (matches[2] === 'c') return;
                     conversions.push({
                         amount: (amount * 9 / 5) + 32,
                         unit: TemperatureUnit.Fahrenheit

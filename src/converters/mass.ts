@@ -117,6 +117,7 @@ export class MassConverter {
                     });
                     break;
                 case MassUnit.Stone:
+                    if (matches[1] === '1') return;
                     conversions.push({
                         amount: amount * 6350.29,
                         unit: MassUnit.Gram

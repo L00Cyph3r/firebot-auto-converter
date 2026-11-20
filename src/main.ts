@@ -23,8 +23,16 @@ const plugin: Plugin<Params> = {
         description: packageInfo.description,
         author: packageInfo.author,
         version: packageInfo.version,
-        repo: "https://github.com/L00Cyph3r/Firebot-auto-converter",
+        repo: "https://github.com/L00Cyph3r/firebot-auto-converter",
+        support: "https://github.com/L00Cyph3r/firebot-auto-converter/issues",
         minimumFirebotVersion: {major: 5, minor: 67},
+        tags: [
+            "chat",
+            "unit",
+            "conversion",
+            "convert",
+            "temperature"
+        ]
     },
     onLoad: () => {
         firebot.events.onTriggered(eventHandler);
@@ -35,11 +43,14 @@ const eventHandler: PluginEventHandler = (event: TriggeredEvent) => {
     if (event.event.id !== 'chat-message') {
         return;
     }
-    // @ts-ignore
     // Don't process replies, we'll get inifinite loops if we do.
-    if (event.meta.chatMessage.isReply) {
+    let cm = event.meta.chatMessage;
+    // @ts-ignore
+    if (cm.isReply || cm.isSharedChatMessage || cm.isAnnouncement || cm.isGigantified || cm.isGif || cm.whisper || cm.isCheer) {
         return;
     }
+
+    firebot.logger.info(`meta: ${JSON.stringify(event.meta)}`);
 
     let message = <string>event.meta.messageText;
     firebot.logger.info(`Message received: "${message}"`);

@@ -19,7 +19,9 @@ export class FluidVolumeConverter {
     public static chatMessageHandler: PluginEventHandler = (event: TriggeredEvent): string | undefined => {
         let validUnits = [
             'litre',
+            'litres',
             'liter',
+            'liters',
             'ltr',
             'l',
             'gal',
@@ -31,7 +33,7 @@ export class FluidVolumeConverter {
         let message = <string>event.meta.messageText;
         let messageId = <string>event.meta.messageId;
 
-        const speedRegex = new RegExp(/(?:^|\s)(\d+[.,]?\d*)\s?((litre|liter|ltr|l|gallon|gal)\w*)/gi);
+        const speedRegex = new RegExp(/(?:^|\s)(\d+[.,]?\d*)\s?((litres?|liters?|ltr|l|gallon|gal)\w*)/gi);
         let matches = speedRegex.exec(message.replaceAll(',', '.'));
         if (!matches) {
             firebot.logger.info('No matches found for fluid volume');
@@ -47,6 +49,12 @@ export class FluidVolumeConverter {
                     unit = 'l';
                     break;
                 case 'liter':
+                    unit = 'l';
+                    break;
+                case 'litres':
+                    unit = 'l';
+                    break;
+                case 'liters':
                     unit = 'l';
                     break;
                 case 'ltr':
